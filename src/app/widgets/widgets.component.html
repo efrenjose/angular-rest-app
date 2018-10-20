@@ -1,2 +1,4 @@
 <h1>Widgets Component</h1>
-<h4>{{message}}</h4>
+<h4 [style.color]="color" >{{message}}</h4>
+<input mdInput [(ngModel)]="color" type="text" name="color-input">
+<button type="button" md-button (click)="echo($event)">Echo</button>

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class WidgetsComponent implements OnInit {
 
     message: string;
+    color = 'blue';
 
     constructor() {
 
@@ -16,5 +17,9 @@ export class WidgetsComponent implements OnInit {
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
         this.message = 'Hello Widgets!!';
+    }
+
+    echo(color) {
+        console.log('color:', color);
     }
 }
