@@ -1,4 +1,51 @@
-<h1>Widgets Component</h1>
-<h4 [style.color]="color" >{{message}}</h4>
-<input mdInput [(ngModel)]="color" type="text" name="color-input">
-<button type="button" md-button (click)="echo($event)">Echo</button>
+<div class="container">
+    <!-- WIDGETS LIST -->
+    <div class="col-50">
+        <md-card>
+            <md-card-header>
+                <md-card-title>
+                    <h1>Widgets</h1>
+                </md-card-title>
+            </md-card-header>
+            <md-card-content>
+                <md-list>
+                    <md-list-item *ngFor="let widget of widgets" (click)="selectWidget(widget)">
+                        <h3 md-line>{{widget.name}}</h3>
+                        <button md-icon-button>
+                            <md-icon>close</md-icon>
+                        </button>
+                        <p md-line>{{widget.description}}</p>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+        <Pre>{{widgets | json}}</Pre>
+    </div>
+
+
+
+    <!-- WIDGET DETAILS -->
+    <div class="col-50">
+        <md-card>
+            <md-card-header>
+                <md-card-title>
+                    <h1>
+                        <span *ngIf="selectedWidget; else prompt">{{selectedWidget.name}}</span>
+                        <ng-template #prompt>Select a widget</ng-template>
+                    </h1>
+                </md-card-title>
+            </md-card-header>
+            <form>
+                <md-card-content>
+                    {{selectedWidget | json}}
+                </md-card-content>
+                <md-card-actions>
+                    <button type="submit" md-button>Save</button>
+                    <button type="button" md-button (click)="selectWidget(null)">Cancel</button>
+                </md-card-actions>
+            </form>
+        </md-card>
+        <hr>
+        <pre>{{selectedWidget | json}}</pre>
+    </div>
+</div>
