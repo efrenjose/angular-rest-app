@@ -16,6 +16,8 @@ import { ItemDetailComponent } from './items/item-detail/item-detail.component';
 import { HomeComponent } from './home/home.component';
 import { WidgetsComponent } from './widgets/widgets.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { WidgetsListComponent } from './widgets/widgets-list/widgets-list.component';
+import { WidgetsDetailsComponent } from './widgets/widgets-details/widgets-details.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ReviewsComponent } from './reviews/reviews.component';
     ItemsListComponent,
     ItemDetailComponent,
     WidgetsComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    WidgetsListComponent,
+    WidgetsDetailsComponent
   ],
   imports: [
     BrowserAnimationsModule,

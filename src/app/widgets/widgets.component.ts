@@ -32,4 +32,8 @@ export class WidgetsComponent implements OnInit {
         console.log('widget saved:', widget);
         this.reset();
     }
+
+    deleteWidget(widget) {
+        
+    }
 }
