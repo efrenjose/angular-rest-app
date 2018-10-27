@@ -48,4 +48,21 @@ export class WidgetsService {
     getAll() {
         return this.widgets;
     }
+
+    deleteWidget(widget) {
+        this.widgets = this.widgets.filter((x) => x.id !== widget.id);
+    }
+
+    createWidget(widget) {
+        this.widgets.push(widget);
+    }
+
+    saveWidget(widget) {
+        this.widgets.map((w) => {
+            if (w.id === widget.id) {
+                w.name = widget.name;
+                w.description = widget.description;
+            }
+        })
+    }
 }

@@ -3,13 +3,13 @@
       <md-card-header>
           <md-card-title>
               <h1>
-                  <span *ngIf="selectedWidget.id; else prompt">{{selectedWidget.name}}</span>
+                  <span *ngIf="selectedWidget.id; else prompt">{{originalName}}</span>
                   <ng-template #prompt>Select a widget</ng-template>
               </h1>
           </md-card-title>
       </md-card-header>
       <form #myForm="ngForm" 
-            (submit)="save(selectedWidget)">
+            (submit)="saved.emit(selectedWidget)">
           <md-card-content>
               <md-input-container class="full-width">
                   <input mdInput required placeholder="Name" 
@@ -22,7 +22,7 @@
           </md-card-content>
           <md-card-actions>
               <button type="submit" [disabled]="!myForm.valid" md-button>Save</button>
-              <button type="button" md-button (click)="reset()">Cancel</button>
+              <button type="button" md-button (click)="cancelled.emit(selectedWidget)">Cancel</button>
           </md-card-actions>
       </form>
   </md-card>
