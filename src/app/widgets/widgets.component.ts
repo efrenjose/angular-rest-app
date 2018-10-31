@@ -16,8 +16,13 @@ export class WidgetsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loadWidgets();
         this.reset();
-        this.widgets = this.widgetService.getAll();
+    }
+
+    loadWidgets() {
+        this.widgetService.all()
+            .subscribe(widgets => this.widgets = widgets);
     }
 
     reset() {
@@ -30,17 +35,33 @@ export class WidgetsComponent implements OnInit {
 
     saveWidget(widget) {
         if (!widget.id) {
-            this.widgetService.createWidget(widget);
-            this.reset();
+            this.createWidget(widget);
         } else {
-            this.widgetService.saveWidget(widget);
-            this.reset();
+            this.updateWidget(widget);
         }
     }
 
+    createWidget(widget) {
+        this.widgetService.create(widget)
+                .subscribe(result => {
+                    this.loadWidgets();
+                    this.reset();
+                });
+    }
+
+    updateWidget(widget) {
+        this.widgetService.update(widget)
+                .subscribe(result => {
+                    this.loadWidgets();
+                    this.reset();
+                });
+    }
+
     deleteWidget(widget) {
-        this.widgetService.deleteWidget(widget);
-        this.widgets = this.widgetService.getAll();
-        this.reset();
+        this.widgetService.delete(widget)
+            .subscribe(result => {
+                this.loadWidgets();
+                this.reset();
+            })
     }
 }

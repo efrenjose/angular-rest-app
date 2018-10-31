@@ -1,68 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Widget } from './widget.model';
+
+const BASE_URL = 'http://localhost:3000/widgets/';
+const HEADER = {headers: new Headers({'Content-Type': 'application/json'})};
 
 @Injectable()
 export class WidgetsService {
 
-    widgets = [
-        {
-            id: 1,
-            name: 'Red Widget',
-            description: 'This is a red widget'
-        },
-        {
-            id: 2,
-            name: 'Orange Widget',
-            description: 'This is an orange widget'
-        },
-        {
-            id: 3,
-            name: 'Yellow Widget',
-            description: 'This is a yellow widget'
-        },
-        {
-            id: 4,
-            name: 'Green Widget',
-            description: 'This is a green widget'
-        },
-        {
-            id: 5,
-            name: 'Blue Widget',
-            description: 'This is a blue widget'
-        },
-        {
-            id: 6,
-            name: 'Indigo Widget',
-            description: 'This is a indigo widget'
-        },
-        {
-            id: 7,
-            name: 'Violet Widget',
-            description: 'This is a violet widget'
-        }
-    ]
-
-    constructor() {
+    constructor(private http: Http) {
 
     }
 
-    getAll() {
-        return this.widgets;
+    all() {
+        return this.http.get(BASE_URL)
+            .map(res => res.json());
     }
 
-    deleteWidget(widget) {
-        this.widgets = this.widgets.filter((x) => x.id !== widget.id);
+    delete(widget: Widget) {
+        return this.http.delete(`${BASE_URL}${widget.id}`)
     }
 
-    createWidget(widget) {
-        this.widgets.push(widget);
+    create(widget: Widget) {
+        return this.http.post(`${BASE_URL}`, JSON.stringify(widget), HEADER)
+            .map(res => res.json());
     }
 
-    saveWidget(widget) {
-        this.widgets.map((w) => {
-            if (w.id === widget.id) {
-                w.name = widget.name;
-                w.description = widget.description;
-            }
-        })
+    update(widget: Widget) {
+        return this.http.patch(`${BASE_URL}${widget.id}`, JSON.stringify(widget), HEADER)
+        .map(res => res.json());
     }
 }
