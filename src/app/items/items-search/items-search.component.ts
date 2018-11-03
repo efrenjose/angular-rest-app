@@ -16,12 +16,21 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ItemsSearchComponent implements OnInit {
   @ViewChild('itemsSearch') itemsSearch;
+  @Output() results = new EventEmitter();
+  message;
+  items;
 
   constructor(private itemsService: ItemsService) {
   }
 
   ngOnInit() {
-
+    const search$ = Observable.fromEvent(this.getNativeElement(this.itemsSearch), 'keyup')
+      .debounceTime(200)
+      .distinctUntilChanged()
+      //.filter((event: any) => event.shiftKey)
+      .map((event: any) => event.target.value)
+      .switchMap(query => this.itemsService.search(query))
+      .subscribe(items => this.results.emit(items));
   }
 
   getNativeElement(element) {
