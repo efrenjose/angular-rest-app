@@ -1,6 +1,10 @@
 <div class="container">
   <div class="col-50">
     <app-reviews></app-reviews>
+    <md-input-container class="full-width">
+      <input mdInput placeholder="Current Status" [(ngModel)]="status" type="text" name="name">
+    </md-input-container>
+    <app-status (logout)="logout($event)" [currentStatus]="status"></app-status>
     <hr>
     <app-items-search (results)="handleResults($event)"></app-items-search>
     <app-items-list [items]="items" [readonly]="true"></app-items-list>
